@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://foretagsportalen.telenor.se/cp/corporate/login/ -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+        Telenor Företagsportalen
+    </title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta content="a000">
+
+    <script async="" src="Telenor Företagsportalen_files/analytics.js.download"></script>
+    <script src="Telenor Företagsportalen_files/jquery.min.js.download"></script>
+    <link rel="stylesheet" type="text/css" href="Telenor Företagsportalen_files/common.css">
+    <link rel="stylesheet" type="text/css" href="Telenor Företagsportalen_files/core.css">
+    <link rel="stylesheet" type="text/css" href="Telenor Företagsportalen_files/groupnumber.css">
+    <script type="text/javascript" src="Telenor Företagsportalen_files/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {
+            packages: ['corechart', 'bar']
+        });
+        
+        google.charts.setOnLoadCallback(drawTotalsData);
+        
+        function drawTotalsData() {
+            var columnChart = new google.visualization.ColumnChart(document.getElementById('overview_col_chart'));
+            var pieChart = new google.visualization.PieChart(document.getElementById('overview_pie_chart'));
+            
+             var groupMontlyData = google.visualization.arrayToDataTable([
+                    ["Grupp", "Periodiska kostnader","Engångskostnader","Samtalskostnader","Krediteringar","Total kostnad"],
+                    ["Övriga", 23469.39, 1301.00, 521.58, -337.14, 24954.83],
+                    ["Testgrupp 2", 0.00, 0.00, 0.00, 0.00, 0.00],
+                    ["testremove", 0.00, 0.00, 0.00, 0.00, 0.00],
+                    ["Test", 0.00, 0.00, 0.00, 0.00, 0.00],
+                    ["vintergrupp", 0.00, 0.00, 0.00, 4.00, 0.00],
+                    ["NaraGroup", 0.00, 0.00, 0.00, 0.00, 0.00],
+                    ["a", 0.00, 0.00, 0.00, 0.00, 0.00]
+                ]);
+            
+            drawGroupData(groupMontlyData);
+            
+            function drawGroupData(monthlyData){
+                 var barChartOptions = {legend: 'none',
+                                tooltip : {
+                                            trigger: 'none'
+                                          },
+                                annotations: {alwaysOutside: true},
+                                backgroundColor: { fill:'transparent' },
+                                width: 200,
+                                height: 20,
+                                chartArea: {width: '60%'},
+                                hAxis: {
+                                  textPosition: 'none',
+                                  gridlines: {
+                                        color: 'none'
+                                    },
+                                    ticks: [0, 100]
+                                },
+                                vAxis: {
+                                    textPosition: 'none',
+                                },
+                                'animation': { startup: true,
+                                   duration: 1000,
+                                   easing: 'linear'}
+                              };
+                var rowNum = monthlyData.getNumberOfRows();
+                var totalCost = 0;
+                
+                for(var i=0; i<rowNum; i++ ){
+                    totalCost += monthlyData.getValue(i,5)
+                }
+                
+                for(var i=0; i<rowNum; i++ ){
+                    var groupName = monthlyData.getValue(i,0);
+                    var percentage = (monthlyData.getValue(i,5)/totalCost * 100);
+                    
+                    var groupData = google.visualization.arrayToDataTable([
+                                    ['Group', 'kostnand', {role: 'annotation'}],
+                                    [ groupName, percentage, percentage.toFixed(2)+'%'],
+                                  ]);
+                    
+                    var barChart = new google.visualization.BarChart($('#group_id_'+i+' .barchart')[0]);
+                    barChart.draw(groupData, barChartOptions);
+                }
+            }
+            
+            var pieChartOptions = { pieHole: 0.4,
+                                    legend: 'none',
+                                    width: 437,
+                                    height: 300};
+            
+            var columnChartOptions = {
+                    'title': 'Total kostnad (exkl. moms)',
+                    'width': 890,
+                    'height': 300,
+                    'legend': 'none',
+                    'animation': { startup: true,
+                                   duration: 1000,
+                                   easing: 'linear'}
+            };
+
+            var pieChartData = google.visualization.arrayToDataTable([
+                ["", "Kostnad"],
+                ["Samtal", 8.40],
+                ["Periodiska kostnade", 15583.00],
+                ["Engångskostnader", 360.00]
+            ]);
+
+           
+            var data = google.visualization.arrayToDataTable([
+                    ["Månad", "Kostnad"],
+                    ["dec 15", 1200000],
+                    ["jan 15", 1200000],
+                    ["feb 15", 1500000],
+                    ["mar 15", 1400000],
+                    ["apr 15", 1300000],
+                    ["maj 15", 1500000],
+                    ["jun 15", 1200000],
+                    ["jul 15", 1300000],
+                    ["aug 15", 1500000],
+                    ["sep 15", 2000000],
+                    ["okt 15", 2000000],
+                    ["nov 15", 2400000]
+                ]);
+            
+            var columnChartView = new google.visualization.DataView(data);
+            columnChartView.setColumns([0, 1]);
+            columnChart.draw(columnChartView, columnChartOptions);
+            pieChart.draw(pieChartData, pieChartOptions);
+        };
+        
+//        function drawChart() {
+//
+//            // Create the data table.
+//            var data = new google.visualization.DataTable();
+//            data.addColumn('string', 'Topping');
+//            data.addColumn('number', 'Slices');
+//            data.addRows([
+//              ['Mushrooms', 3],
+//              ['Onions', 1],
+//              ['Olives', 1],
+//              ['Zucchini', 1],
+//              ['Pepperoni', 2]
+//            ]);
+//
+//            // Set chart options
+//            var options = {
+//                'title': 'How Much Pizza I Ate Last Night',
+//                'width': 400,
+//                'height': 300,
+//                'theme': 'material',
+//                animation: {startup: true,duration: 1000,
+//          easing: 'linear',}
+//            };
+//            
+//            var donutOptions = {
+//                'title': 'How Much Pizza I Ate Last Night',
+//                'width': 400,
+//                'height': 300,
+//                'theme': 'material',
+//                pieHole: 0.3,
+//                animation: {startup: true,duration: 1000,
+//          easing: 'linear'}
+//            };
+//            
+//            var barView = new google.visualization.DataView(data);
+//            barView.setColumns([0,1,{ calc: "stringify",
+//                                    sourceColumn: 1,
+//                                    type: "string",
+//                                    role: "annotation" },
+//                               ]);
+//            var barOptions = {
+//                'title': 'How Much Pizza I Ate Last Night',
+//                'width': 400,
+//                'height': 300,
+//                'theme': 'material',
+//                'bar': {groupWidth: "95%"},
+//                'legend': { position: "none" },
+//                'animation': {startup: true,duration: 1000,
+//          easing: 'linear',}
+//            };
+//            var lineOptions = {
+//                chart: {
+//                  title: 'How Much Pizza I Ate Last Night',
+//                  subtitle: 'based on toppings '
+//                },
+//                width: 400,
+//                height: 300,
+//                'theme': 'material',
+//                axes: {
+//                  x: {
+//                    0: {side: 'top'}
+//                  }
+//                },
+//                animation: {"startup": true}
+//              };
+//
+//            // Instantiate and draw our chart, passing in some options.
+//            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+//            var donutChart = new google.visualization.PieChart(document.getElementById('donut_chart_div'));
+//            var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
+//            var columnChart = new google.visualization.ColumnChart(document.getElementById('column_chart_div'));
+//            var lineChart = new google.visualization.LineChart(document.getElementById('line_chart_div'));
+//            
+//            chart.draw(data, options);
+//            donutChart.draw(data, donutOptions);
+//            barChart.draw(barView, barOptions);
+//            columnChart.draw(barView, barOptions);
+//            lineChart.draw(barView, lineOptions);
+//        }
+    </script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+<script src="/corp/resources/vendors/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="/corp/resources/vendors/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    <!--[if lt IE 10]>
+<link rel="stylesheet" type="text/css" href="/cp/css/ie9.css">
+<![endif]-->
+
+    <script type="text/javascript" src="Telenor Företagsportalen_files/combined.js.h-2084848239.pack" charset="utf-8"></script>
+    <script type="text/javascript">
+        var maxTime = 3600;
+    </script>
+    <script type="text/javascript" src="Telenor Företagsportalen_files/session_cookie.js.download"></script>
+    <script>
+        $(document).ready(function () {
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="page" class="page-a000 page-private">
+        <header id="head">
+            <div class="navbar navbar-top">
+                <div class="navbar-inner">
+                    <div class="navbar-logo" id="logo-new">
+                        <a href="https://foretagsportalen.telenor.se/cp/corporate?mode=PORTAL_ACCESS"><span></span></a>
+                    </div>
+                    <div class="navbar-user" id="navigation-mod">
+                        <div class="navbar-user-icon">
+                            <span></span>
+                        </div>
+                        <div class="navbar-org-num">
+                            <ul class="list-unstyled">
+                                <li class="navbar-company-name">
+                                    <span title="Vinternatt AB">Vinternatt AB</span>
+                                </li>
+                                <li>
+                                    5561111112
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="navigation-innermod" class="pull-right">
+
+                            <ul class="navbar-user-info logged-inmod">
+                                <li class="navbar-user-name">
+                                    <span title="Vinternatt Testavtal Produktionen">Vinternatt Testavtal Produktionen</span>
+                                </li>
+                                <li class="login-infomod navbar-user-dropdown">
+                                    <div class="dropdownmod">
+                                        <a href="https://foretagsportalen.telenor.se/cp/corporate/login/#" class="dropdown-toggle logged-on user-dropdown-toggle"><span>Inloggad</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                        <ul class="dropdown-menumod user-dropdown">
+
+                                            <li><a href="https://foretagsportalen.telenor.se/cp/settings/user/?mode=ADMIN_SPECIFIC_SETTINGS">Min profil</a></li>
+
+
+                                            <li><a href="https://foretagsportalen.telenor.se/cp/settings/notifications/?mode=ADMIN_NOTIFICATIONS">Notifieringar</a></li>
+
+
+                                            <li><a href="https://foretagsportalen.telenor.se/cp/selfservice/admin/main/?mode=ADMIN_AVAILABLE_SERVICES">Anpassa tjänsteutbudet</a></li>
+                                            <li><a href="https://foretagsportalen.telenor.se/cp/selfservice/admin/subscriptions/main/?mode=ADMIN_AVAILABLE_SERVICES">Anpassa abonnemangsutbudet</a></li>
+
+                                            <li>
+                                                <a href="https://foretagsportalen.telenor.se/cp/corporate/logout/?mode=PORTAL_ACCESS">Logga ut</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-menu navbar-menu-main">
+                <div class="navbar-inner">
+                    <nav class="header-nav">
+                        <div class="header-nav-tree header-nav-tree-main">
+                            <div>
+                                <ul>
+                                    <li data-level="1" data-curtain="enabled">
+                                        <a data-key="a700" href="https://foretagsportalen.telenor.se/cp/corporate/login/null">Abonnemang</a>
+                                    </li>
+
+                                    <li data-level="1" data-curtain="enabled">
+                                        <a data-key="a1000" href="https://foretagsportalen.telenor.se/cp/corporate/login/null">Avtalstjänster</a>
+                                    </li>
+
+                                    <li data-level="1" data-curtain="enabled">
+                                        <a data-key="a600" href="https://foretagsportalen.telenor.se/cp/corporate/login/null">Avtal</a>
+                                    </li>
+
+                                    <li data-level="1" data-curtain="enabled">
+                                        <a data-key="a801" href="https://foretagsportalen.telenor.se/cp/corporate/login/null">Support</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="navbar navbar-menu navbar-menu-sub">
+                <div class="navbar-inner">
+                    <nav class="header-nav">
+                        <div class="header-nav-tree header-nav-tree-sub">
+                            <ul class="clearfix">
+                                <li data-level="3"><a data-key="a251" href="https://foretagsportalen.telenor.se/cp/ordersubscription/main/?mode=ORDER_SUBSCRIPTIONS">Beställ abonnemang</a></li>
+
+                                <li data-level="3"><a data-key="a260" href="https://foretagsportalen.telenor.se/cp/subscription/pausedmainpage/?mode=ADMIN_PAUSED_SUB">Vilande abonnemang</a></li>
+
+                                <li data-level="3"><a data-key="a240" href="https://foretagsportalen.telenor.se/cp/subscription/activatemainpage/?mode=ACTIVATE_DEACTIVATE_SUB">Aktivera/spärra abonnemang</a></li>
+
+                                <li data-level="3"><a data-key="a270" href="https://foretagsportalen.telenor.se/cp/subscription/mainpage/?mode=CANCEL_SUBS">Avsluta abonnemang</a></li>
+
+                                <li data-level="3"><a data-key="a210" href="https://foretagsportalen.telenor.se/cp/selfservice/mainpage/?mode=SERVICES">Beställ tjänster</a></li>
+
+                                <li data-level="3"><a data-key="a120" href="https://foretagsportalen.telenor.se/cp/balance/?mode=VIEW_BALANCE">Ofakturerat saldo</a></li>
+
+                                <li data-level="3"><a data-key="a310" href="https://foretagsportalen.telenor.se/cp/costalert/main/?mode=ADMIN_CA">Saldolarm</a></li>
+
+                                <li data-level="3"><a data-key="a170" href="https://foretagsportalen.telenor.se/cp/corpinvoice/searchinvoices/?mode=CORP_INVOICE">Samlingsfaktura</a></li>
+
+                                <li data-level="3"><a data-key="a130" href="https://foretagsportalen.telenor.se/cp/invoice/search/?mode=VIEW_INVOICE_HISTORY">Fakturahistorik</a></li>
+
+                                <li data-level="3"><a data-key="a140" href="https://foretagsportalen.telenor.se/cp/payment/payment/?mode=VIEW_PAYMENT_HISTORY">Betalningshistorik</a></li>
+
+                                <li data-level="3"><a data-key="a253" href="https://foretagsportalen.telenor.se/cp/invoice/agreementstructure/?mode=PDF_INVOICE">Beställ/avbeställ PDF-Faktura</a></li>
+
+                                <li data-level="3"><a data-key="a320" href="https://foretagsportalen.telenor.se/cp/terminalinfo/chooseagreement/?mode=VIEW_TERMINALINFO">Terminalinformation</a></li>
+
+                                <li data-level="3"><a data-key="a225" href="https://foretagsportalen.telenor.se/cp/bulksim/?mode=ORDER_BULKSIM&amp;clear=true">Beställ SIM-kort till eget lager</a></li>
+
+
+                            </ul>
+
+
+                            <ul class="clearfix">
+
+
+                                <li data-level="2"><a data-key="a3000" href="https://foretagsportalen.telenor.se/cp/groupnumber/showagreements/?mode=GROUP_NUMBER">Gruppnummer</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1010" href="https://foretagsportalen.telenor.se/cp/ivr/agreements/?mode=ADMIN_IVR">Menyval</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1040" href="https://foretagsportalen.telenor.se/cp/operator/agreements/?mode=ADMIN_OPERATOR">Telefonist Premium</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1045" href="https://foretagsportalen.telenor.se/cp/operator/agreements/?mode=ADMIN_OPERATOR">Ladda ner Telenor Svara</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1042" href="https://foretagsportalen.telenor.se/cp/voicemail/agreements/?mode=ADMIN_DIVERSION_VOICEMAIL&amp;serviceType=diversion">Hänvisning</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1041" href="https://foretagsportalen.telenor.se/cp/voicemail/agreements/?mode=ADMIN_DIVERSION_VOICEMAIL">Röstbrevlåda</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1030" href="https://foretagsportalen.telenor.se/cp/agreement/mainpage/?mode=PORTAL_ACCESS">Utökad Nummervisning</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a3100" href="https://foretagsportalen.telenor.se/cp/softphoneservice/main/?mode=SOFT_PHONE">Softphone</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1043" href="https://foretagsportalen.telenor.se/cp/tss/mainpage/?mode=ADMIN_TSS">Svarsservice</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1044" href="https://foretagsportalen.telenor.se/cp/calendarsettings/getagreements/?mode=ADMIN_CALENDAR">Kalenderkoppling</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a1046" href="https://foretagsportalen.telenor.se/cp/agreement/getagreementssip/?mode=SIP">Fasttelefoni SIP</a></li>
+
+
+                            </ul>
+
+
+                            <ul class="clearfix">
+
+
+                                <li data-level="2"><a data-key="a610" href="https://foretagsportalen.telenor.se/cp/administrator/agreementstructure/?mode=AGREEMENT_STRUCTURE&amp;service=agreement_structure">Avtal och gruppstruktur</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a611" href="https://foretagsportalen.telenor.se/cp/agreementprices/chooseagreement/?mode=AGREEMENT_PRICES">Avtalspriser</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a650" href="https://foretagsportalen.telenor.se/cp/moveuser/main/?mode=REQUEST_USERDATA_CHANGE">Flytta användare</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a630" href="https://foretagsportalen.telenor.se/cp/groupadmin/getagreements/?mode=GROUP_NEW">Hantera grupper</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a620" href="https://foretagsportalen.telenor.se/cp/administrator/getmainpage/?mode=SELECT_ADMINAGREEMENT">Hantera administratörer</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a255" href="https://foretagsportalen.telenor.se/cp/subscription/newsubscriptions/?mode=NEW_SUBSRIPTIONS&amp;clear=true">Nya abonnemang</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a100" href="https://foretagsportalen.telenor.se/cp/atlas/?mode=ATLAS_LOGIN">Mobil Analys</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a299" href="https://foretagsportalen.telenor.se/cp/userreport/mainpage/?mode=USER_REPORT">Användarrapporter</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a930" href="https://foretagsportalen.telenor.se/cp/multisim/reportmain/?mode=MULTI_SIM">Rapport Extra Data-SIM</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a911" href="https://foretagsportalen.telenor.se/cp/settings/agreements/?mode=MINASIDOR_ADMIN">Inställningar Mina sidor</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a150" href="https://foretagsportalen.telenor.se/cp/invoice/swift/?mode=VIEW_SWIFT">Betalningsinformation</a></li>
+
+
+                            </ul>
+
+
+                            <ul class="clearfix">
+
+
+                                <li data-level="2"><a data-key="a500" href="https://foretagsportalen.telenor.se/cp/support/asksupport/?mode=ADMINVIEW_SUPPORT_INFO">Fråga support</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a516" href="https://foretagsportalen.telenor.se/cp/support/startusing/?mode=GETTING_STARTED">Snabbguide</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a513" href="https://foretagsportalen.telenor.se/cp/support/manuals/?mode=MANUAL_INFO">Manualer</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a512" href="https://foretagsportalen.telenor.se/cp/support/forms/?mode=VIEW_SUPPORT_INFO">Blanketter</a></li>
+
+
+
+                                <li data-level="2"><a data-key="a800" href="https://foretagsportalen.telenor.se/cp/weblog/main/?mode=WEB_LOGS">Ärendehistorik</a></li>
+
+
+                            </ul>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    se.telenor.cp.components.navigationBar.onLoad({
+                        menuKey: {
+                            topItem: '',
+                            subItem: ''
+                        }
+                    });
+                });
+            </script>
+
+
+
+
+        </header>
+        <div id="main">
+            <div class="container">
+                <div class="main-content">
+                    <div class="main">
+
+
+
+                        <div>
+
+                            <div id="masterdiv" data-hasqtip="0" aria-describedby="qtip-0"></div>
+
+
+                            <script type="text/javascript">
+                                // Create the tooltips only on document load
+                                $(document).ready(function () {
+                                    // Match all link elements with href attributes within the content div
+
+                                    $('span.inputHelp, span.editIcon').mouseover(function () {
+
+                                        $this = $(this);
+
+                                        var id = $this.attr('id');
+
+                                        $('#masterdiv').qtip('option', 'position.target', $this);
+                                        $('#masterdiv').qtip('option', 'content.text', $("#content" + id).attr('value'));
+                                        $('#masterdiv').qtip('option', 'content.title.text', $("#header" + id).attr('value'));
+                                        $('#masterdiv').qtip('option', 'position.adjust.x', 1);
+                                        $('#masterdiv').qtip('option', 'position.adjust.y', -1);
+
+                                        $this.removeAttr('value');
+                                        $('#masterdiv').qtip('show');
+
+                                    });
+
+                                    $('a.inputHelp').mouseover(function () {
+
+                                        $this = $(this);
+
+                                        var id = $this.attr('id');
+
+                                        $('#masterdiv').qtip('option', 'position.target', $this);
+                                        $('#masterdiv').qtip('option', 'content.text', $("#content" + id).attr('value'));
+                                        $('#masterdiv').qtip('option', 'content.title.text', $("#header" + id).attr('value'));
+                                        $('#masterdiv').qtip('option', 'position.adjust.x', 1);
+                                        $('#masterdiv').qtip('option', 'position.adjust.y', -1);
+
+                                        $this.removeAttr('value');
+                                        $('#masterdiv').qtip('show');
+
+                                    });
+
+                                    $('#masterdiv').qtip({
+
+                                        position: {
+                                            adjust: {
+                                                resize: true
+
+                                                //x: 10,
+                                                //y: -10
+                                            },
+                                            viewport: $(window),
+                                            my: "bottom middle",
+                                            //tip
+                                            at: "top middle"
+                                        },
+
+                                        content: {
+                                            // You must set initial content with
+                                            // at least a space, or you won't be
+                                            // able to update it later.
+                                            text: ' ',
+                                            title: {
+                                                text: ''
+                                            }
+                                        },
+                                        // Tell the tip never to show
+                                        show: false,
+                                        // Turn off the hide effect so that the qTip can be
+                                        // available for the next mouseover immediately
+                                        hide: {
+                                            effect: false
+                                        },
+
+
+                                        style: {
+                                            classes: 'ui-tooltip-telenor ui-tooltip-shadow ui-tooltip-rounded'
+                                        },
+                                        // Turn pre-prendering on so we don't have
+                                        // and weird API issues
+                                        prerender: true
+                                    });
+
+                                    $('span.inputHelp, span.editIcon').mouseleave(function () {
+
+                                        // Hide the master tooltip
+                                        $('#masterdiv').qtip('hide');
+
+                                        // Restore the title tag so we
+                                        // can use it again later
+                                        $(this).attr('title', $.data(this, 'title'));
+
+                                    });
+                                    $('a.inputHelp').mouseleave(function () {
+
+                                        // Hide the master tooltip
+                                        $('#masterdiv').qtip('hide');
+
+                                        // Restore the title tag so we
+                                        // can use it again later
+                                        $(this).attr('title', $.data(this, 'title'));
+
+                                    });
+                                });
+                            </script>
+
+                            <section class="page-container">
+                                <div class="page-content">
+
+                                    <div class="row">
+                                         <div class="col-xs-12">
+                                            <h1>Mobyl analysis</h1>
+                                            <div id="startpageInfo">
+
+                                                <p>
+                                                </p>
+                                                <p>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" style="margin: 2px 0px;">
+                                        <div class="col-xs-12" style="background-color:white; padding-left:8px; padding-right:8px;" >
+                                            <h2 style="text-align: left;"><font>Översikt över Vinternatt AB</font>
+                                                <p style="text-align: left;font-weight: 300;font-size: 13px;"></p>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="puff col-xs-12">
+                                            <div class="puff-inner puff-inner-editable" style="height:inherit; padding:8px">
+                                                <div class="informationEditableExtended">  
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <div class="sidebar-header"><span>Summa kostnad</span></div>
+                                                                <table class="table-defaultlist" style="margin: 16px 0px;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>Kostnader</th>
+                                                                            <th>Krediteringar</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Samtal:</td>
+                                                                            <td>8,40<span> kr</span></td>
+                                                                            <td>0,00<span> kr</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Periodiska kostnader:</td>
+                                                                            <td>15 583,00<span> kr</span></td>
+                                                                            <td>0,00<span> kr</span></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Engångskostnader:</td>
+                                                                            <td>360,00<span> kr</span></td>
+                                                                            <td>-424,80<span> kr</span></td>
+                                                                        </tr>
+                                                                         <tr style="height: 70px;">
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                        </tr>
+                                                                         <tr>
+                                                                            <td>Total kostnad:</td>
+                                                                            <td>15 526,60<span> kr</span></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                         <tr>
+                                                                            <td>Totalt antal samtal:</td>
+                                                                            <td>31</td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Total samtalslängd: </td>
+                                                                            <td>00:12:41</td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Antal användare: </td>
+                                                                            <td>24</td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    <tfoot></tfoot>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <div class="sidebar-header"><span>kostnadsjämförelse</span></div>
+                                                                <div id="overview_pie_chart"></div>
+                                                            </div>
+                                                            <div class="col-xs-12">
+                                                               <div class="sidebar-header"><span>Bevakningar</span></div>
+                                                               <table class="table-defaultlist">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Telefonnummer </th>
+                                                                                        <th>apr 2016</th>
+                                                                                        <th>maj 2016</th>
+                                                                                        <th>Skillnad</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>0708126327 </td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                                <tfoot></tfoot>
+                                                                </table>
+                                                           </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 2px 0px;">
+                                            <div class="col-xs-12" style="background-color:white; padding-left:8px; padding-right:8px;" >
+                                                <h2 style="text-align: left;"><font>Trendanalys per månad</font>
+                                                    <p style="text-align: left;font-weight: 300;font-size: 13px;"></p>
+                                                </h2>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="puff col-xs-12">
+                                            <div class="puff-inner puff-inner-editable" style="height:inherit; padding:8px">
+                                                <div class="informationEditableExtended">  
+                                                      <div class="row">
+                                                        <div class="col-xs-12">
+                                                               <div class="sidebar-header"><span>Nivå (Vinternatt AB)</span></div>
+                                                        </div>
+                                                         <div class="col-xs-12" id="trend_month_analysis"> 
+                                                               <div id="overview_col_chart" style="min-height:300px;"></div>
+                                                         </div>
+                                                         <div class="col-xs-12">
+                                                             <div class="sidebar-header"><span>ANALYS per grupp</span></div>
+                                                         </div>
+                                                        <div class="col-xs-12">
+                                                                <table class="table-defaultlist">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Grupp </th>
+                                                                                        <th>Periodiska kostnader</th>
+                                                                                        <th>Engångskostnader</th>
+                                                                                        <th>Samtalskostnader</th>
+                                                                                        <th>Krediteringar</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr id="group_id_0">
+                                                                                        <td>Övriga</td>
+                                                                                        <td>23469.39<span> kr</span></td>
+                                                                                        <td> 1301.00<span> kr</span></td>
+                                                                                        <td> 521.58<span> kr</span></td>
+                                                                                        <td>-337.14<span> kr</span></td>
+                                                                                        <td><div class="barchart" style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                    <tr id="group_id_1">
+                                                                                        <td>Testgrupp</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart" style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                     <tr id="group_id_2">
+                                                                                        <td>testremove</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart" style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                     <tr id="group_id_3">
+                                                                                        <td>Test</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart"></div></td>
+                                                                                    </tr>
+                                                                                     <tr id="group_id_4" style='min-width:200px;'>
+                                                                                        <td>vintergrupp</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>4,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart" style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                     <tr id="group_id_5">
+                                                                                        <td>NaraGroup</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart"  style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                     <tr id="group_id_6">
+                                                                                        <td>a</td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td>0,00<span> kr</span></td>
+                                                                                        <td><div class="barchart" style='min-width:200px;'></div></td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                                <tfoot></tfoot>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-xs-6"> 
+                                                               <div id="grp1_month_1_stacked_chart" style="min-width:300px;"></div>
+                                                            </div>
+                                                         </div>
+                                                        </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="page-sidebar" style="padding: 80px 0px;">
+
+<div class="sidebar">
+
+    <div class="right-puff">
+        <div class="right-puff-inner">
+            <div class="sidebar-header">
+                <span>&nbsp;</span>
+            </div>
+            <div id="currentIssues">
+
+                <div class="sidebar-panel">
+                    <p class="currentIssueDate">
+                        <a href="/cp/weblog/viewmessage/?mode=WEB_LOGS&amp;id=696255">Översikt</a>
+                    </p>
+                </div>
+
+                <div class="sidebar-panel">
+                    <p class="currentIssueDate">
+                        <a href="/cp/weblog/viewmessage/?mode=WEB_LOGS&amp;id=696248">Rapporter</a>
+                    </p>
+                </div>
+
+                <div class="sidebar-panel">
+                    <p class="currentIssueDate">
+                        <a href="/cp/weblog/viewmessage/?mode=WEB_LOGS&amp;id=695646">Specialrapporter</a>
+                    </p>
+                </div>
+
+                <div class="sidebar-panel">
+                    <p class="currentIssueDate">
+                        <a href="/cp/weblog/viewmessage/?mode=WEB_LOGS&amp;id=695645">Struktur</a>
+                    </p>
+                </div>
+
+                <div class="sidebar-panel">
+                    <p class="currentIssueDate">
+                        <a href="/cp/weblog/viewmessage/?mode=WEB_LOGS&amp;id=695643">Skapa egna rapporter</a>
+                    </p>
+
+                </div>
+
+                <div class="sidebar-panel">
+                    <a href="/cp/weblog/main/?mode=WEB_LOGS">Hjälp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+            <nav id="footer_nav3">
+                <ul>
+                    <li class="first-child"><a href="http://www.telenor.se/foretag/index.html#">© Copyright Telenor Sverige AB</a></li>
+                    <li><a href="javascript:popupWindow(&#39;http://www.telenor.se/privat/integritetspolicy/hantering-av-personlig-information.html&#39;, &#39;Hantering_av_personlig_information&#39;,&#39;no&#39;,&#39;yes&#39;,&#39;no&#39;,&#39;no&#39;,&#39;no&#39;,&#39;yes&#39;,&#39;550&#39;,&#39;680&#39;);">Hantering av personlig information</a></li>
+                    <li><a href="javascript:popupWindow(&#39;http://www.telenor.se/privat/integritetspolicy/information-om-cookies.html&#39;, &#39;Information_om_cookies&#39;,&#39;no&#39;,&#39;yes&#39;,&#39;no&#39;,&#39;no&#39;,&#39;no&#39;,&#39;yes&#39;,&#39;550&#39;,&#39;680&#39;);">Information om cookies</a></li>
+                    <li><a href="http://www.telenor.com/">www.telenor.com</a></li>
+                </ul>
+            </nav>
+        </footer>
+    </div>
+    <!-- Popup layer starts -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#hideHelpButton").click(function () {
+                $("#backgroundPopup, .helpPopupDiv").fadeOut("fast");
+            });
+            $("#openHelpPopup").click(function () {
+                $("#backgroundPopup, .helpPopupDiv").fadeIn("fast");
+            });
+        });
+    </script>
+
+    <div id="popLayer" class="errPopup">
+        <p id="divText"></p>
+        <span onclick="javascript:hideShowLayerTimeout(); return false;">
+</span></div>
+    <!--
+    TODO: po875679 2015-12-10 Move this to new include file (inc_service_description.jsp.inc) when all pages are using the master template.
+    The "service_layer" variable should be removed when this page is included.
+-->
+
+    <div id="backgroundPopup"></div>
+    <div id="serviceLayer" class="serviceLayer">
+        <div id="serviceDragbar">
+            <h2 id="serviceHead"></h2>
+            <div id="serviceBody">
+                <p id="serviceBodyText"></p>
+                <div id="billingTable" class="hideService">
+                    <div id="current_discount_1" class="hideService">
+                        <span class="caption">Nuvarande rabatt:</span>
+                        <div id="helpTooltipDiv6196680" class="inputHelp $OPTIONALCLASS">
+                            <input type="hidden" id="header6196680" value="">
+                            <input type="hidden" id="content6196680" value="Har företaget omförhandlat sina priser sedan senaste fakturaperioden, ändras detta först vid nästa fakturaperiod.">
+                            <span id="6196680" class="inputHelp"></span>
+                        </div>
+                    </div>
+                    <table class="table-a613_1" cellspacing="0" cellpadding="0" width="100%" border="0">
+                        <thead>
+                            <tr>
+                                <td class="hideService">Avgift</td>
+                                <td class="hideService">Pris (exkl moms)</td>
+                                <td class="hideService" id="discountDescriptionHead">Beskrivning</td>
+                                <td class="hideService" id="serviceFeeOrgHead">Ordinarie pris (exkl moms)</td>
+                                <td class="hideService" id="discountEndDateHead">Rabatt t o m</td>
+                            </tr>
+                        </thead>
+                        <tbody id="billingTableBody" class="hideService">
+                            <tr>
+                                <td id="billingFrequency"></td>
+                                <td id="serviceFee"></td>
+                                <td id="discountDescription" class="hideService"></td>
+                                <td id="serviceFeeOrg" class="t_service"></td>
+                                <td id="discountEndDate" class="t_service"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="futureBillingTable" class="hideService">
+                    <p>
+                        <span class="caption">Kommande rabatt:</span>
+                    </p>
+                    <table class="table-a613_1" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <td class="hideService" id="futureDiscountDescriptionHead">Beskrivning</td>
+                                <td class="hideService" id="futureDiscountStartDateHead">Rabatt fr o m</td>
+                            </tr>
+                        </thead>
+                        <tbody id="futureBillingTableBody" class="hideService">
+                            <tr class="cost0">
+                                <td id="futureDiscountDescription" class="hideService"></td>
+                                <td id="futureDiscountStartDate" class="hideService"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="buttonArea">
+                <a href="https://foretagsportalen.telenor.se/cp/corporate/login/#" class="custButtonFirst" onclick="javascript:hideboxs();return false;"><span>Stäng</span></a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./Telenor Företagsportalen_files/se.telenor.cp.pages.a000.js.download"></script>
+
+
+    <script type="application/javascript">
+        var ccadmin = "";
+        var admin = "account: null, address: Gräsvik, city: Ankeborg, contract: null, email: steve.werme@telenor.se, fax: null, fistName: Vinternatt, isActive: true, isAdmin: true, isVisible: true, language: SV, lastName: Testavtal Produktionen, msisdn: null, nodeId: 10368775, orgPersID: 5561111112, phoneNo: 0733838484, roles: [se.telenor.models.corporate.role.Role@11c, se.telenor.models.corporate.role.Role@110, se.telenor.models.corporate.role.Role@10e, se.telenor.models.corporate.role.Role@109, se.telenor.models.corporate.role.Role@102, se.telenor.models.corporate.role.Role@101, se.telenor.models.corporate.role.Role@100, se.telenor.models.corporate.role.Role@ff, se.telenor.models.corporate.role.Role@fd, se.telenor.models.corporate.role.Role@fb, se.telenor.models.corporate.role.Role@fa, se.telenor.models.corporate.role.Role@f5, se.telenor.models.corporate.role.Role@f3, se.telenor.models.corporate.role.Role@f2, se.telenor.models.corporate.role.Role@f0, se.telenor.models.corporate.role.Role@ef, se.telenor.models.corporate.role.Role@ee, se.telenor.models.corporate.role.Role@ed, se.telenor.models.corporate.role.Role@ec, se.telenor.models.corporate.role.Role@e9, se.telenor.models.corporate.role.Role@e8, se.telenor.models.corporate.role.Role@e7, se.telenor.models.corporate.role.Role@117, se.telenor.models.corporate.role.Role@106, se.telenor.models.corporate.role.Role@108, se.telenor.models.corporate.role.Role@107, se.telenor.models.corporate.role.Role@10a, se.telenor.models.corporate.role.Role@eb, se.telenor.models.corporate.role.Role@10d, se.telenor.models.corporate.role.Role@10c, se.telenor.models.corporate.role.Role@10f, se.telenor.models.corporate.role.Role@112], securitryKeys: [se.telenor.models.corporate.role.Security@561ab05f, se.telenor.models.corporate.role.Security@62a4b518, se.telenor.models.corporate.role.Security@4d16c481, se.telenor.models.corporate.role.Security@1e1e33bc, se.telenor.models.corporate.role.Security@1d85f068, se.telenor.models.corporate.role.Security@5a4e9ab5, se.telenor.models.corporate.role.Security@21076fb1, se.telenor.models.corporate.role.Security@4eeb3bfe, se.telenor.models.corporate.role.Security@7c5f84fb, se.telenor.models.corporate.role.Security@52ea32f7, se.telenor.models.corporate.role.Security@488ab5fc, se.telenor.models.corporate.role.Security@5fa953d8, se.telenor.models.corporate.role.Security@5fd16c8a, se.telenor.models.corporate.role.Security@5c2f800d, se.telenor.models.corporate.role.Security@4197fb21, se.telenor.models.corporate.role.Security@54354758, se.telenor.models.corporate.role.Security@d4c468, se.telenor.models.corporate.role.Security@20db0397, se.telenor.models.corporate.role.Security@5eebba5e, se.telenor.models.corporate.role.Security@201a395c, se.telenor.models.corporate.role.Security@64b5eb3, se.telenor.models.corporate.role.Security@7e742256, se.telenor.models.corporate.role.Security@7d4e4e8c, se.telenor.models.corporate.role.Security@cef58a0, se.telenor.models.corporate.role.Security@500d3148, se.telenor.models.corporate.role.Security@f34df8d, se.telenor.models.corporate.role.Security@81dac9, se.telenor.models.corporate.role.Security@765da821, se.telenor.models.corporate.role.Security@4f6340d3, se.telenor.models.corporate.role.Security@66823605, se.telenor.models.corporate.role.Security@68dbff8e, se.telenor.models.corporate.role.Security@73dc4e14, se.telenor.models.corporate.role.Security@26ecfd64, se.telenor.models.corporate.role.Security@51a9d5a2, se.telenor.models.corporate.role.Security@66397796, se.telenor.models.corporate.role.Security@770429ab, se.telenor.models.corporate.role.Security@3642fdf2, se.telenor.models.corporate.role.Security@29593a5d, se.telenor.models.corporate.role.Security@4f17d27, se.telenor.models.corporate.role.Security@52ee4563, se.telenor.models.corporate.role.Security@73628fa1, se.telenor.models.corporate.role.Security@1309d842, se.telenor.models.corporate.role.Security@1c9e9741, se.telenor.models.corporate.role.Security@3c7b0cec, se.telenor.models.corporate.role.Security@5b039345, se.telenor.models.corporate.role.Security@6159baf, se.telenor.models.corporate.role.Security@6ed930b3, se.telenor.models.corporate.role.Security@a214de8, se.telenor.models.corporate.role.Security@4dff7e52, se.telenor.models.corporate.role.Security@671d4ca1, se.telenor.models.corporate.role.Security@40e6a459, se.telenor.models.corporate.role.Security@4028efa0, se.telenor.models.corporate.role.Security@76131419, se.telenor.models.corporate.role.Security@7b66363e, se.telenor.models.corporate.role.Security@ed78167, se.telenor.models.corporate.role.Security@9052af2, se.telenor.models.corporate.role.Security@67d84417, se.telenor.models.corporate.role.Security@2dc55914, se.telenor.models.corporate.role.Security@1f2b2972, se.telenor.models.corporate.role.Security@3f59d2df, se.telenor.models.corporate.role.Security@1a04c1df, se.telenor.models.corporate.role.Security@1d8e3672, se.telenor.models.corporate.role.Security@5b28fc08, se.telenor.models.corporate.role.Security@2a961298, se.telenor.models.corporate.role.Security@16a0242c, se.telenor.models.corporate.role.Security@7a71bd2c, se.telenor.models.corporate.role.Security@66a5d6d6, se.telenor.models.corporate.role.Security@7c3d1a48, se.telenor.models.corporate.role.Security@6babd0a7, se.telenor.models.corporate.role.Security@1c449823, se.telenor.models.corporate.role.Security@549fee1b, se.telenor.models.corporate.role.Security@40e4419a, se.telenor.models.corporate.role.Security@75ff8fc9, se.telenor.models.corporate.role.Security@4d4284d5, se.telenor.models.corporate.role.Security@66865450, se.telenor.models.corporate.role.Security@40c218b, se.telenor.models.corporate.role.Security@d046704, se.telenor.models.corporate.role.Security@54393e5d, se.telenor.models.corporate.role.Security@49d45e, se.telenor.models.corporate.role.Security@652cbda5, se.telenor.models.corporate.role.Security@4bbeda43, se.telenor.models.corporate.role.Security@5668cebf, se.telenor.models.corporate.role.Security@184d0b08, se.telenor.models.corporate.role.Security@180c4c31, se.telenor.models.corporate.role.Security@25dde1b1, se.telenor.models.corporate.role.Security@35d0de83, se.telenor.models.corporate.role.Security@4535967a, se.telenor.models.corporate.role.Security@3f223729, se.telenor.models.corporate.role.Security@75b88915, se.telenor.models.corporate.role.Security@46af65e7, se.telenor.models.corporate.role.Security@2fc0ad0e, se.telenor.models.corporate.role.Security@1755ca0, se.telenor.models.corporate.role.Security@30349dba, se.telenor.models.corporate.role.Security@d894606, se.telenor.models.corporate.role.Security@278b3264, se.telenor.models.corporate.role.Security@c30ea69, se.telenor.models.corporate.role.Security@187d6f18, se.telenor.models.corporate.role.Security@5f83a367, se.telenor.models.corporate.role.Security@2165a2e1, se.telenor.models.corporate.role.Security@2a0d7706, se.telenor.models.corporate.role.Security@59fbc8f0, se.telenor.models.corporate.role.Security@1b21c033, se.telenor.models.corporate.role.Security@17df1b1c, se.telenor.models.corporate.role.Security@56abfba6, se.telenor.models.corporate.role.Security@519005cb, se.telenor.models.corporate.role.Security@44a56792, se.telenor.models.corporate.role.Security@2bcd83e1, se.telenor.models.corporate.role.Security@22b22bf5, se.telenor.models.corporate.role.Security@735ddc35, se.telenor.models.corporate.role.Security@1c2bac3b, se.telenor.models.corporate.role.Security@5b3ef6d4, se.telenor.models.corporate.role.Security@68e083c5, se.telenor.models.corporate.role.Security@75415698, se.telenor.models.corporate.role.Security@344a767f, se.telenor.models.corporate.role.Security@18eebe74, se.telenor.models.corporate.role.Security@74fcf807, se.telenor.models.corporate.role.Security@bf69596, se.telenor.models.corporate.role.Security@6ce8f319, se.telenor.models.corporate.role.Security@118fdee, se.telenor.models.corporate.role.Security@12b7110a, se.telenor.models.corporate.role.Security@2dd26cef, se.telenor.models.corporate.role.Security@6892277, se.telenor.models.corporate.role.Security@403858c5, se.telenor.models.corporate.role.Security@6aad2e89, se.telenor.models.corporate.role.Security@54a69227, se.telenor.models.corporate.role.Security@1b73985e, se.telenor.models.corporate.role.Security@190f1585, se.telenor.models.corporate.role.Security@1a55b94b, se.telenor.models.corporate.role.Security@7a02278c, se.telenor.models.corporate.role.Security@7d34f1fa, se.telenor.models.corporate.role.Security@1c7670e4, se.telenor.models.corporate.role.Security@2b5e0dc0, se.telenor.models.corporate.role.Security@400b6160, se.telenor.models.corporate.role.Security@1aeae3ba, se.telenor.models.corporate.role.Security@35b45153, se.telenor.models.corporate.role.Security@6edf6a28, se.telenor.models.corporate.role.Security@754406f2, se.telenor.models.corporate.role.Security@387edcd3, se.telenor.models.corporate.role.Security@2fd72c46, se.telenor.models.corporate.role.Security@3acc9dbe, se.telenor.models.corporate.role.Security@6f6a7f83, se.telenor.models.corporate.role.Security@213cbef9, se.telenor.models.corporate.role.Security@379f1384], sim: null, status: AC, subsId: null, twinsim: null, userId: 10029224, username: vinternatt, zipCode: 37180";
+        var adminType = "Oinloggad";
+
+        if (ccadmin != null && ccadmin != "") {
+            adminType = "Customer services";
+        } else if (admin != null && admin != "") {
+            adminType = "Administrator";
+        }
+
+        var pageTitle = retrievePageTitle();
+
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        if ('true' != null && 'true' == 'true') {
+            ga('create', {
+                trackingId: 'UA-25305325-5',
+                cookieDomain: 'foretagsportalen.telenor.se',
+                siteSpeedSampleRate: 10
+            });
+        } else {
+            ga('create', {
+                trackingId: 'UA-25305325-5',
+                cookieDomain: 'auto',
+                siteSpeedSampleRate: 10
+            });
+        }
+        ga('set', 'dimension1', adminType);
+
+
+        $(document).ready(function () {
+
+            var pagePath = location.pathname,
+                pageTitle = getPageTitle();
+
+            if (pagePath === '/cp/search/') {
+                var queryKey = '',
+                    queryFrom = '';
+
+                pagePath = pagePath + '?q=' + queryKey;
+                if (queryFrom === 'menu') {
+                    pageTitle = pageTitle + ' - Meny sökning';
+                }
+            }
+            logPageViewHit(pagePath, pageTitle);
+
+
+            jQuery.extend(jQuery.expr[':'], {
+
+                saveorchange: function (a) {
+                    return $(a).attr('data-trackname') != undefined;
+                },
+
+                external: function (a) {
+                    return !a.href.match(/^mailto\:/) && !a.href.match(/^javascript\:/) && (a.hostname != location.hostname);
+                }
+            });
+
+
+            $('form:saveorchange').submit(function (obj) {
+                var activity = this.getAttribute('data-trackname');
+                googleAnalyticsFormSubmit(activity, $(obj.target));
+            });
+
+
+            $('form:saveorchange').one('click', function (event) {
+                var $target = $(event.target);
+
+                if (!$target.is('a') && !$target.is('span')) {
+
+                    var path = '/virtual/form/interaction/' + this.id;
+                    logPageViewHit(path, getPageTitle());
+                }
+            });
+
+
+            $('#openHelpPopup').click(function (event) {
+                var helpopupHeadline = $("#helpHead1").text();
+                if (helpopupHeadline.trim() == "" || helpopupHeadline == null) {
+                    helpopupHeadline = $("#helpBody span:first").text();
+                }
+                if (helpopupHeadline.trim() == "" || helpopupHeadline == null) {
+                    helpopupHeadline = "no_boxname";
+                }
+
+                logPageViewHit(location.pathname, getPageTitle() + ", HELP: " + helpopupHeadline);
+            });
+
+
+            $('a:external').click(function (event) {
+                logPageViewHit('/virtual/external/' + this.hostname + this.pathname, getPageTitle() + ", EXTERNAL: " + this.text);
+                if ($(this).prop('target') != '_blank') {
+                    setTimeout('document.location = "' + this.href + '"', 100);
+                }
+            });
+
+
+            if ($(this).text() == 'Mobil Analys') {
+                logPageViewHit('/Statistik/Mobil Analys/', getPageTitle());
+            }
+
+
+            $('a.downloadFiles').click(function () {
+                var docName = $(this).attr("id");
+                var href = $(this).attr("href");
+                var filetypes = /\.(pdf|doc|docx|ppt|pptx|pps|ppsx|xls|xlsx|exe|vcf|eps|jpg)$/i;
+
+
+                if (docName.indexOf("CSV") != -1) {
+                    logCsvFileDownload(docName);
+                } else if (docName == 'paymentPDF') {
+                    logPageViewHit('/virtual/download/pdf/Betalningskopia', getPageTitle());
+                    logGoogleAnalyticsEvent('Invoices', 'Show PDF', 'Payment History');
+                } else if (docName == 'invoicePDF') {
+                    logPageViewHit('/virtual/download/pdf/Fakturakopia', getPageTitle());
+                    logGoogleAnalyticsEvent('Invoices', 'Show PDF', 'Invoice History');
+                } else if (href && href.match(filetypes)) {
+                    var extension = (/[.]/.exec(href)) ? /[^.]+$/.exec(href) : undefined;
+                    var fileDownloadPageView = '/virtual/download/' + extension + '/' + docName;
+                    logPageViewHit(fileDownloadPageView, getPageTitle());
+                    setTimeout('window.open("' + href + '")', 100);
+                    return false;
+                } else if (docName.length > 0 && href == '#') {
+                    logPageViewHit('/virtual/download/unknown/' + docName, getPageTitle())
+                }
+                setTimeout('document.location = "' + href + '"', 100);
+                return false;
+            });
+        });
+
+        function getTabName() {
+            if ($(".tabOpenWide").length > 0 || $(".flik-open_wide").length > 0 || $(".flik-open").length > 0 || $(".tabOpen").length > 0 || $(".tab.active").length > 0) {
+                tabName = $(".tabOpenWide").text();
+                tabName = (tabName == "") ? $(".flik-open_wide").text() : tabName;
+                tabName = (tabName == "") ? $(".flik-open").last().text() : tabName;
+                tabName = (tabName == "") ? $(".tabOpen").children(":first").text() : tabName;
+                tabName = (tabName == "") ? $(".tab.active").text() : tabName;
+
+
+                tabName = tabName.replace(/ *\([^)]*\) */g, "");
+                return tabName.trim();
+            }
+            return "";
+        }
+
+        function retrievePageTitle() {
+
+            var title = getHeadLine();
+
+
+            if (title.length == 0) {
+                title = getFirstHeading();
+            }
+
+
+            if (title.length == 0) {
+                title = getSecondHeading();
+            }
+
+            if (title.length == 0) {
+                title = getThirdHeading();
+            }
+
+
+            if (title.length == 0) {
+                title = "Page missing proper headline and headings";
+            }
+            return title;
+        }
+
+        function getHeadLine() {
+            var title = "";
+
+
+            if (true) {
+                title = "Välkommen";
+            } else if (false) {
+
+                title = "Login";
+            }
+
+
+            if (title.length == 0 && $("h1.headline").length > 0) {
+                title = $("h1.headline").text().trim();
+
+
+                if (title.length == 0 && $("div.page-content h1").length > 1) {
+                    title = $("div.page-content h1:eq(1)").text().trim();
+                }
+            }
+            return title;
+        }
+
+        function getFirstHeading() {
+            var title = "";
+
+            if ($("div.page-content h1").length > 0) {
+                title = $("div.page-content h1").first().text().trim();
+
+                if (title.length == 0 && $("div.page-content h1").length > 1) {
+                    title = $("div.page-content h1:eq(1)").text().trim();
+                }
+            }
+
+            if (title.length == 0 && $("div.main-content h1").length > 0) {
+                title = $("div.page-content h1").first().text().trim();
+
+                if (title.length == 0 && $("div.main-content h1").length > 1) {
+                    title = $("div.main-content h1:eq(1)").text().trim();
+                }
+            }
+            return title;
+        }
+
+        function getSecondHeading() {
+            var title = "";
+
+            if ($("div.page-content h2").length > 0) {
+                title = $("div.page-content h2").first().text().trim();
+            }
+
+            if (title.length == 0 && $("div.main-content h2").length > 0) {
+                title = $("div.main-content h2").first().text().trim();
+            }
+            return title;
+        }
+
+        function getThirdHeading() {
+            var title = "";
+
+            if (title.length == 0 && $("div.page-content h3").length > 0) {
+                title = $("div.page-content h3").first().text().trim();
+            }
+
+            if (title.length == 0 && $("div.main-content h3").length > 0) {
+                title = $("div.main-content h3").first().text().trim();
+            }
+            return title;
+        }
+
+        function getPageTitle() {
+            var tabName = getTabName();
+            if (tabName) {
+                return pageTitle + ", TAB: " + tabName;
+            }
+            return pageTitle;
+        }
+
+
+        function logCsvFileDownload(docName) {
+            if (docName == 'generalSearchCSV') {
+                logPageViewHit('/virtual/download/xls/Generellt sökresultat', getPageTitle());
+            } else if (docName == 'corporateInvoiceCSV') {
+                logPageViewHit('/virtual/download/xls/Samlingsfakturor', getPageTitle());
+            } else if (docName == 'trafficFeeCSV') {
+                logPageViewHit('/virtual/download/xls/Samlingsfaktura-Trafikavgifter', getPageTitle());
+            } else if (docName == 'fixedFeesCSV') {
+                logPageViewHit('/virtual/download/xls/Samlingsfaktura-Fasta avgifter', getPageTitle());
+            } else if (docName == 'callDetailsCSV') {
+                logPageViewHit('/virtual/download/xls/Trafikspecifikation', getPageTitle());
+            } else if (docName == 'userInGroupdCSV') {
+                logPageViewHit('/virtual/download/xls/Användare i grupper', getPageTitle());
+            } else if (docName == 'terminalsCSV') {
+                logPageViewHit('/virtual/download/xls/Terminalinformation', getPageTitle());
+            } else if (docName == 'bindingPeriodCSV') {
+                logPageViewHit('/virtual/download/xls/Användarrapport-bindningstid', getPageTitle());
+            } else if (docName == 'servicesCSV') {
+                logPageViewHit('/virtual/download/xls/Användarrapport-tjänster', getPageTitle());
+            } else if (docName == 'extraDataSimCSV') {
+                logPageViewHit('/virtual/download/xls/Rapport Extra Data-SIM', getPageTitle());
+            } else if (docName == 'buydateCSV') {
+                logPageViewHit('/virtual/download/xls/Användarrapport-Inköpsdatum', getPageTitle());
+            }
+        }
+
+
+        function googleAnalyticsErrorPush(errorMessage) {
+            var virtualErrorString = '/virtual/message' + location.pathname;
+            var errorString = "MESSAGE: " + errorMessage.substring(0, 200)
+            logPageViewHit(virtualErrorString, errorString);
+        }
+
+        function googleAnalyticsExpand(topic) {
+            var expandPageView = getPageTitle() + ", ACCORDION: " + topic;
+            logPageViewHit(location.pathname, expandPageView);
+        }
+
+
+        function googleAnalyticsOrderServices(services, nofUsers) {
+            for (i = 0; i < services.length; i++) {
+                googleAnalyticsServicesEvent("Order Service", services, nofUsers);
+            }
+        }
+
+        function googleAnalyticsCancelServices(services, nofUsers) {
+            for (i = 0; i < services.length; i++) {
+                googleAnalyticsServicesEvent("Cancel Service", services, nofUsers);
+            }
+        }
+
+        function googleAnalyticsServicesEvent(orderType, services, nofUsers) {
+            for (i = 0; i < services.length; i++) {
+                ga('send', 'event', {
+                    eventCategory: 'Services',
+                    eventAction: orderType,
+                    eventLabel: services[i],
+                    eventValue: parseInt(nofUsers)
+                });
+            }
+        }
+
+        function googleAnalyticsBarUnbarPhone(status) {
+            logGoogleAnalyticsEvent('Telephony', status, "");
+        }
+
+
+        function googleAnalyticsSim(action) {
+            logGoogleAnalyticsEvent('Sim Cards', action, "SIM");
+        }
+
+        function googleAnalyticsTwinSim(action) {
+            logGoogleAnalyticsEvent('Sim Cards', action, "TwinSIM");
+        }
+
+        function googleAnalyticsMultiSim(action) {
+            logGoogleAnalyticsEvent('Sim Cards', action, "MultiSIM");
+        }
+
+
+        function googleAnalyticsSubscription(action) {
+            logGoogleAnalyticsEvent('Subscriptions', action, "");
+        }
+
+
+        function googleAnalyticsInvoice(action) {
+            logGoogleAnalyticsEvent('Invoices', action, "");
+        }
+
+        function googleAnalyticsSubmitComment(caseSolved) {
+            if (typeof caseSolved === 'undefined') {
+                googleAnalyticsErrorCaseCommented();
+            } else {
+                googleAnalyticsSubmitOfCaseResolution(caseSolved);
+            }
+        }
+
+        function googleAnalyticsSubmitOfCaseResolution(caseSolved) {
+            var caseSolvedDescription = caseSolved === 'true' ? 'Closing of error report approved' : 'Closing of error report NOT approved';
+            logGoogleAnalyticsEvent('Error reports', 'Report updated', caseSolvedDescription);
+        }
+
+        function googleAnalyticsErrorCaseCommented() {
+            logGoogleAnalyticsEvent('Error reports', 'Report updated', 'Comment added');
+        }
+
+        function googleAnalyticsOpenMoreInfo(agreementService) {
+            ga('send', 'event', {
+                eventCategory: 'Information',
+                eventAction: 'Open more information',
+                eventLabel: agreementService,
+                page: location.pathname,
+                title: getPageTitle() + ', MORE INFO: ' + agreementService,
+                location: location.href
+            });
+        }
+
+        function googleAnalyticsFormSubmit(activity, obj) {
+
+            var logString = '/virtual/form/sent/' + obj.context.id;
+            var formName = getPageTitle() + ", FORM: " + obj.context.id;
+            logPageViewHit(logString, formName);
+
+            var submittableElements = [];
+            submittableElements.push.apply(submittableElements, $(obj).find("a").get());
+            submittableElements.push.apply(submittableElements, $(obj).find("button").get());
+
+            var pageTitleVal = getPageTitle();
+
+            $.each(submittableElements, function (i) {
+                var domText = $(this).text();
+                var submitButtonNames = ['Spara', 'Skicka'];
+                if ($.inArray($.trim(domText), submitButtonNames) !== -1) {
+                    logGoogleAnalyticsEvent('Forms', activity, pageTitleVal);
+                }
+            });
+        }
+
+
+        function logPageViewHit(documentPath, documentTitle) {
+            ga('send', {
+                hitType: 'pageview',
+                page: documentPath,
+                title: documentTitle,
+                location: location.href
+            });
+        }
+
+
+        function logGoogleAnalyticsEvent(category, action, type) {
+            ga('send', 'event', {
+                eventCategory: category,
+                eventAction: action,
+                eventLabel: type,
+                page: location.pathname,
+                title: getPageTitle(),
+                location: location.href
+            });
+        }
+    </script>
+
+
+    <div id="qtip-0" class="qtip qtip-default ui-tooltip-telenor ui-tooltip-shadow ui-tooltip-rounded qtip-pos-bc" tracking="false" role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-0-content" aria-hidden="true" data-qtip-id="0">
+        <div class="qtip-tip" style="background-color: transparent !important; border: 0px !important; width: 6px; height: 6px; line-height: 6px; left: 50%; margin-left: -3px; bottom: -6px;">
+            <canvas width="6" height="6" style="background-color: transparent !important; border: 0px !important; width: 6px; height: 6px;"></canvas>
+        </div>
+        <div class="qtip-content" id="qtip-0-content" aria-atomic="true"> </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+Nivå- level
+Oversikt-Overview
+
+
+Data should be displayed by selecting levels;
+Group
+    -sunbgroup
+
+Data should be displayed:
+ - Quartely,
+ - Monthly,
+ - Every other month
+
+Table analysis should be displayed:
+                 | COSTS   |  CREDITS  |
+CALL             | 8,40    |   0,00    |
+PERIODIC COSTS   |15883,00 |   0,00    |
+ONE OF COSTS     |360,00   |  -424,80  |
+
+TOTAL COSTS      |15526,60 |  
+TOTAL CALLS      | 31      |
+TOTAL TIME       |00:12:41 |
+NO UF USERS      | 24      |
+
+Subsritions:
+Telefonnummer   | apr 2016 |  maj 2016 | Skillnad |
+0708126327      | 0,00     |      0,00 |  0,00    |
+
+
+Trend analysis per month 
+per month (excluding VAT)
+
+Column chart showing total for selected level (acumulationm for all sublevels)
+Should be able to display individual leveles individual levels
+Mocked trend analysis...
+
+
+
+
+ Trendanalys per månad -terrnd analysis per month
+ 
+ 
+ GET mobilAnalysis/org/{id}
+ GET mobilAnalysis/org/{id}/group
+ GET mobilAnalysis/orggroup/{id}
+ GET mobilAnalysis/orggroup/{id}/user
+ 
+ GET mobilAnalysis/grpuser/{id}/call
+ GET mobilAnalysis/grpuser/{id}/call //filter by month range sort ASC
+ 
+ 
+ GET mobilAnalysis/grpuser/{id}/call/{id}
+ 
+{ name: "Vinternatt AB",
+  userGroups: [
+                { groupName: "name",
+                  nonNrRelatedCosts: { periodicCost:"",
+                                       oneOfCost: "",
+                                       callCost "",
+                                       credit: -455},
+                  users:[
+                          { userName: "",
+                            telNo: "",
+                            totalCalls: "",
+                            periodicCost:"",
+                            oneOfCost: "",
+                            callCost "",
+                            credit: -455,
+                            calls: [{ date:
+                                     duration:
+                                     }]
+                            }
+                        ]
+                 }
+               ]
+}

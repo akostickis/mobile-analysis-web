@@ -1,0 +1,8 @@
+$(function () {
+    se.telenor.cp.pages.a000 = {
+        addInputToUrl: function (puffCounter) {
+            $("#puffForm_" + puffCounter).attr("action", $("#puffForm_" + puffCounter).attr("action") + $("#inputField_" + puffCounter).val());
+            return true;
+        }
+    };
+});
