@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="Telenor Företagsportalen_files/core.css">
     <link rel="stylesheet" type="text/css" href="Telenor Företagsportalen_files/groupnumber.css">
     <script type="text/javascript" src="Telenor Företagsportalen_files/loader.js"></script>
+	<script type="text/javascript" src="Telenor Företagsportalen_files/mobile-analysis.js"></script>
     <script type="text/javascript">
 
         google.charts.load('current', {
@@ -27,10 +28,10 @@
         google.charts.setOnLoadCallback(drawTotalsData);
         
         function drawTotalsData() {
-            var columnChart = new google.visualization.ColumnChart(document.getElementById('overview_col_chart'));
-            var pieChart = new google.visualization.PieChart(document.getElementById('overview_pie_chart'));
             
-             var groupMontlyData = google.visualization.arrayToDataTable([
+			mobileAnalysis.loadGroupAnalysisData();
+			
+            var groupMontlyData = google.visualization.arrayToDataTable([
                     ["Grupp", "Periodiska kostnader","Engångskostnader","Samtalskostnader","Krediteringar","Total kostnad"],
                     ["Övriga", 23469.39, 1301.00, 521.58, -337.14, 24954.83],
                     ["Testgrupp 2", 0.00, 0.00, 0.00, 0.00, 0.00],
@@ -87,131 +88,7 @@
                     barChart.draw(groupData, barChartOptions);
                 }
             }
-            
-            var pieChartOptions = { pieHole: 0.4,
-                                    legend: 'none',
-                                    width: 437,
-                                    height: 300};
-            
-            var columnChartOptions = {
-                    'title': 'Total kostnad (exkl. moms)',
-                    'width': 890,
-                    'height': 300,
-                    'legend': 'none',
-                    'animation': { startup: true,
-                                   duration: 1000,
-                                   easing: 'linear'}
-            };
-
-            var pieChartData = google.visualization.arrayToDataTable([
-                ["", "Kostnad"],
-                ["Samtal", 8.40],
-                ["Periodiska kostnade", 15583.00],
-                ["Engångskostnader", 360.00]
-            ]);
-
-           
-            var data = google.visualization.arrayToDataTable([
-                    ["Månad", "Kostnad"],
-                    ["dec 15", 1200000],
-                    ["jan 15", 1200000],
-                    ["feb 15", 1500000],
-                    ["mar 15", 1400000],
-                    ["apr 15", 1300000],
-                    ["maj 15", 1500000],
-                    ["jun 15", 1200000],
-                    ["jul 15", 1300000],
-                    ["aug 15", 1500000],
-                    ["sep 15", 2000000],
-                    ["okt 15", 2000000],
-                    ["nov 15", 2400000]
-                ]);
-            
-            var columnChartView = new google.visualization.DataView(data);
-            columnChartView.setColumns([0, 1]);
-            columnChart.draw(columnChartView, columnChartOptions);
-            pieChart.draw(pieChartData, pieChartOptions);
         };
-        
-//        function drawChart() {
-//
-//            // Create the data table.
-//            var data = new google.visualization.DataTable();
-//            data.addColumn('string', 'Topping');
-//            data.addColumn('number', 'Slices');
-//            data.addRows([
-//              ['Mushrooms', 3],
-//              ['Onions', 1],
-//              ['Olives', 1],
-//              ['Zucchini', 1],
-//              ['Pepperoni', 2]
-//            ]);
-//
-//            // Set chart options
-//            var options = {
-//                'title': 'How Much Pizza I Ate Last Night',
-//                'width': 400,
-//                'height': 300,
-//                'theme': 'material',
-//                animation: {startup: true,duration: 1000,
-//          easing: 'linear',}
-//            };
-//            
-//            var donutOptions = {
-//                'title': 'How Much Pizza I Ate Last Night',
-//                'width': 400,
-//                'height': 300,
-//                'theme': 'material',
-//                pieHole: 0.3,
-//                animation: {startup: true,duration: 1000,
-//          easing: 'linear'}
-//            };
-//            
-//            var barView = new google.visualization.DataView(data);
-//            barView.setColumns([0,1,{ calc: "stringify",
-//                                    sourceColumn: 1,
-//                                    type: "string",
-//                                    role: "annotation" },
-//                               ]);
-//            var barOptions = {
-//                'title': 'How Much Pizza I Ate Last Night',
-//                'width': 400,
-//                'height': 300,
-//                'theme': 'material',
-//                'bar': {groupWidth: "95%"},
-//                'legend': { position: "none" },
-//                'animation': {startup: true,duration: 1000,
-//          easing: 'linear',}
-//            };
-//            var lineOptions = {
-//                chart: {
-//                  title: 'How Much Pizza I Ate Last Night',
-//                  subtitle: 'based on toppings '
-//                },
-//                width: 400,
-//                height: 300,
-//                'theme': 'material',
-//                axes: {
-//                  x: {
-//                    0: {side: 'top'}
-//                  }
-//                },
-//                animation: {"startup": true}
-//              };
-//
-//            // Instantiate and draw our chart, passing in some options.
-//            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-//            var donutChart = new google.visualization.PieChart(document.getElementById('donut_chart_div'));
-//            var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
-//            var columnChart = new google.visualization.ColumnChart(document.getElementById('column_chart_div'));
-//            var lineChart = new google.visualization.LineChart(document.getElementById('line_chart_div'));
-//            
-//            chart.draw(data, options);
-//            donutChart.draw(data, donutOptions);
-//            barChart.draw(barView, barOptions);
-//            columnChart.draw(barView, barOptions);
-//            lineChart.draw(barView, lineOptions);
-//        }
     </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -642,7 +519,7 @@
                                                         <div class="row">
                                                             <div class="col-xs-6">
                                                                 <div class="sidebar-header"><span>Summa kostnad</span></div>
-                                                                <table class="table-defaultlist" style="margin: 16px 0px;">
+                                                                <table id="org-cost" data-org-id="" class="table-defaultlist" style="margin: 16px 0px;">
                                                                     <thead>
                                                                         <tr>
                                                                             <th></th>
@@ -651,53 +528,13 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>Samtal:</td>
-                                                                            <td>8,40<span> kr</span></td>
-                                                                            <td>0,00<span> kr</span></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Periodiska kostnader:</td>
-                                                                            <td>15 583,00<span> kr</span></td>
-                                                                            <td>0,00<span> kr</span></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Engångskostnader:</td>
-                                                                            <td>360,00<span> kr</span></td>
-                                                                            <td>-424,80<span> kr</span></td>
-                                                                        </tr>
-                                                                         <tr style="height: 70px;">
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                        </tr>
-                                                                         <tr>
-                                                                            <td>Total kostnad:</td>
-                                                                            <td>15 526,60<span> kr</span></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                         <tr>
-                                                                            <td>Totalt antal samtal:</td>
-                                                                            <td>31</td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Total samtalslängd: </td>
-                                                                            <td>00:12:41</td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Antal användare: </td>
-                                                                            <td>24</td>
-                                                                            <td></td>
-                                                                        </tr>
                                                                     </tbody>
                                                                     <tfoot></tfoot>
                                                                 </table>
                                                             </div>
                                                             <div class="col-xs-6">
                                                                 <div class="sidebar-header"><span>kostnadsjämförelse</span></div>
-                                                                <div id="overview_pie_chart"></div>
+                                                                <div id="overview_pie_chart" style="min-height: 300px; border: 1px dashed #dee0de; border-radius: 5px;margin: 1px; margin-bottom: 5px;"></div>
                                                             </div>
                                                             <div class="col-xs-12">
                                                                <div class="sidebar-header"><span>Bevakningar</span></div>
@@ -742,9 +579,28 @@
                                                                <div class="sidebar-header"><span>Nivå (Vinternatt AB)</span></div>
                                                         </div>
                                                          <div class="col-xs-12" id="trend_month_analysis"> 
-                                                               <div id="overview_col_chart" style="min-height:300px;"></div>
+                                                               <div id="overview_col_chart" style="min-height: 300px; border: 1px dashed #dee0de; border-radius: 5px;margin: 1px; margin-bottom: 5px;"></div>
                                                          </div>
-                                                         <div class="col-xs-12">
+														 <div class="row">
+															<div class="col-xs-6" id="user_activity_per_month"> 
+																<div class="col-xs-12">
+																	   <div class="sidebar-header"><span>Gruppverksamhet per månad</span></div>
+																</div>
+																<div class="col-xs-12">
+																	   <div id="group_activity_per_month_chart" style="min-height: 300px; border: 1px dashed #dee0de; border-radius: 5px;margin: 1px; margin-bottom: 5px;"></div>
+																</div>
+															</div>
+															<div class="col-xs-6" id="group_activity_per_month">
+																<div class="col-xs-12">
+																	   <div class="sidebar-header"><span>Användare aktivitet per månad</span></div>
+																</div>
+																<div class="col-xs-12">
+																	   <div id="user_activity_per_month_chart" style="min-height: 300px; border: 1px dashed #dee0de; border-radius: 5px;margin: 1px; margin-bottom: 5px;"></div>
+																</div>
+															</div>
+														</div>
+														 
+														 <div class="col-xs-12">
                                                              <div class="sidebar-header"><span>ANALYS per grupp</span></div>
                                                          </div>
                                                         <div class="col-xs-12">
