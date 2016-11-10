@@ -6,9 +6,10 @@
 
     var columnChartOptions = {
                     'title': 'Total kostnad (exkl. moms)',
-                    'width': 890,
+                    'width': 880,
                     'height': 300,
                     'legend': 'none',
+                    'hAxis' : {slantedText:true, slantedTextAngle:90 },
                     'animation': { startup: true,
                                    duration: 1000,
                                    easing: 'linear'}
